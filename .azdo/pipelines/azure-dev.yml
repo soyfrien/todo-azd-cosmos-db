@@ -16,8 +16,10 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         azd provision --no-prompt
-    env:
-      AZURE_SUBSCRIPTION_ID: ${AZURE_SUBSCRIPTION_ID}
+    with: # Set Azure credentials secret as an input
+      credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    env: # Or as an environment variable
+      credentials: ${{ secrets.AZURE_CREDENTIALS }}
       AZURE_ENV_NAME: ${AZURE_ENV_NAME}
       AZURE_LOCATION: ${AZURE_LOCATION}
   - task: AzureCLI@2
